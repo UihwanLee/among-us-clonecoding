@@ -949,7 +949,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 5335198224653943727, guid: b05b4b5a865c9fd429eeb7bef35eab0a, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 5377151150248779373, guid: ddec45e615f5ab94281b5bd52ef72362, type: 3}
   showRoomGUI: 1
   minPlayers: 1
   roomPlayerPrefab: {fileID: 5150573805032431619, guid: 19ba4148c17f37949bae7c414eac8621, type: 3}
@@ -5189,7 +5190,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -10327,7 +10328,7 @@ Animator:
   m_GameObject: {fileID: 1077922912}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c087a54e7f0b2a7478b21199336e5c3e, type: 2}
+  m_Controller: {fileID: 9100000, guid: fafa9418cc06b074bad93e8ea43bbe2a, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -12981,7 +12982,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

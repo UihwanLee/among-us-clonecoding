@@ -709,6 +709,11 @@ namespace Mirror
                 GUI.Box(new Rect(10f, 180f, 520f, 150f), "PLAYERS");
         }
 
+        public void OnRoomServerConnect(NetworkConnection conn)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion
     }
 }

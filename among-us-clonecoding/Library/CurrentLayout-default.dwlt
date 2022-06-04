@@ -44,10 +44,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 911, y: 492}
-  m_MaxSize: {x: 22006, y: 14042}
+  m_MinSize: {x: 910, y: 492}
+  m_MaxSize: {x: 22005, y: 14042}
   vertical: 1
-  controlID: 166
+  controlID: 192
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 178
+  controlID: 62
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 342}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 1
-  controlID: 177
+  controlID: 61
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -220,8 +220,8 @@ MonoBehaviour:
     y: 0
     width: 686
     height: 790
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 21}
   m_Panes:
   - {fileID: 21}
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 354
     height: 488
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -276,10 +276,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 947
-  m_MinSize: {x: 911, y: 492}
-  m_MaxSize: {x: 22006, y: 14042}
+  m_MinSize: {x: 910, y: 492}
+  m_MaxSize: {x: 22005, y: 14042}
   vertical: 0
-  controlID: 167
+  controlID: 193
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -299,8 +299,8 @@ MonoBehaviour:
     y: 0
     width: 514
     height: 947
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -530,36 +530,36 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/UI/Sprites
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/UI/Sprites
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\user\Documents\among-us-clonecoding
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 36500000
-    m_LastClickedID: 20534
-    m_ExpandedIDs: 00000000fc4f00003e500000
+    m_SelectedIDs: 44530000
+    m_LastClickedID: 21316
+    m_ExpandedIDs: 00000000fa5200003c530000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Shader
+      m_OriginalName: Shader
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 46106
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 7}
     m_SearchString: 
@@ -573,7 +573,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000fc4f0000fe4f000000500000
+    m_ExpandedIDs: 00000000fa520000fc520000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -625,7 +625,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 480}
     m_GridSize: 64
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 125
@@ -696,7 +696,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 5023feff6024feffec2dfeff4836feff2839feff8444feff8a48feff5c4cfeffd24cfeffbc4efeffc24efeffdc4efeffee68fefffe70feffe872feff5e73feff4875feff4e75feff6875feff0a81feff76effeff90f3feffae41ffff0865fffff866ffff6e67ffff7067ffff7667ffff7c67ffffd46bffff4a6cffff326effff3a6effff406effff747cffff1e8cffffbc90ffff50aaffffc6aaffffb0acffffb8acffffbeacffff76b6ffff6cb9ffffe2b9ffffcebbffffd6bbffffdcbbffff12c3ffff9cc7ffff12c8fffffcc9ffff04caffff0acaffff92d5ffff36d9ffffacd9ffff9adbffffa2dbffffa8dbffff30dfffffa6dfffff94e1ffff9ce1ffffa2e1ffff2ce8ffff40fbffffb4aa000062e900009ce900004afa000054fa0000ec0e0100ce17010048180100341c010046270100
+      m_ExpandedIDs: 96c4feff0cc5fefffcc6feff02c7feff1cc7feff7687ffffd091ffff5cbaffffe4c4ffffb4c5ffffbac7ffffdec7ffff16c8ffffd2cdffff2ad3fffff6d4ffff76dafffff8e1ffffb4e9ffff7aefffff62f6ffff40fbfffff4ffffff5c6d0000ea78000028830000328c0000508c00000ea8000048a80000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -756,9 +756,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.15035003, y: 0.2689447, z: -1.526311}
+    m_Target: {x: -1.0055264, y: 1.5281969, z: -0.3717525}
     speed: 2
-    m_Value: {x: 0.15035003, y: 0.2689447, z: -1.526311}
+    m_Value: {x: -1.0055264, y: 1.5281969, z: -0.3717525}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -809,9 +809,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 2.663787
+    m_Target: 2.8147135
     speed: 2
-    m_Value: 2.663787
+    m_Value: 2.8147135
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -891,7 +891,7 @@ MonoBehaviour:
     m_VAllowExceedBaseRangeMin: 1
     m_VAllowExceedBaseRangeMax: 1
     m_ScaleWithWindow: 0
-    m_HSlider: 0
+    m_HSlider: 1
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
     m_EnableMouseInput: 1
@@ -905,18 +905,18 @@ MonoBehaviour:
       y: 21
       width: 685
       height: 748
-    m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 342.5, y: 374}
+    m_Scale: {x: 1.304773, y: 1.304773}
+    m_Translation: {x: 300.71735, y: 374}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -342.5
-      y: -374
-      width: 685
-      height: 748
+      x: -230.47484
+      y: -286.6399
+      width: 524.99554
+      height: 573.2798
     m_MinimalGUI: 1
   m_defaultScale: 1
   m_LastWindowPixelSize: {x: 685, y: 769}

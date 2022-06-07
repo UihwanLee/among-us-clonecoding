@@ -11,6 +11,8 @@ ScriptsOnlyBuild:
     - CustomizeUI
     - FloatingCrew
     - GameRoomSettingUI
+    - GameRuleItem
+    - GameRuleStore
     - LobbyCharacterMover
     - LobbyUIManager
     - MainMenuUI
@@ -152,6 +154,8 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
+      Script: {instanceID: 1604}
+    - Class: 114
       Script: {instanceID: 1606}
     - Class: 114
       Script: {instanceID: 1608}
@@ -172,7 +176,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 3292}
     - Class: 114
+      Script: {instanceID: 3402}
+    - Class: 114
+      Script: {instanceID: 4052}
+    - Class: 114
       Script: {instanceID: 4494}
+    - Class: 114
+      Script: {instanceID: 4586}
     - Class: 114
       Script: {instanceID: 4938}
     - Class: 114
@@ -186,9 +196,19 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 6584}
     - Class: 114
+      Script: {instanceID: 6592}
+    - Class: 114
       Script: {instanceID: 7008}
     - Class: 114
+      Script: {instanceID: 7022}
+    - Class: 114
+      Script: {instanceID: 7666}
+    - Class: 114
       Script: {instanceID: 7760}
+    - Class: 114
+      Script: {instanceID: 28894}
+    - Class: 114
+      Script: {instanceID: 32414}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -1027,7 +1047,7 @@ ScriptsOnlyBuild:
     className: TMP_SubMeshUI
   - hash:
       serializedVersion: 2
-      Hash: 515cf30f29cd08a96b23ab4af06b9c9a
+      Hash: 5a35ab978ca629f871db292b4358fe93
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CustomizeUI
@@ -1435,7 +1455,7 @@ ScriptsOnlyBuild:
     className: NetworkMatch
   - hash:
       serializedVersion: 2
-      Hash: f9693aa3aa8bd17c4775ad5d64f69542
+      Hash: d1e2708006f7d2993cc5aee7ab378530
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: AmongUsRoomManager
@@ -1967,6 +1987,18 @@ ScriptsOnlyBuild:
     assemblyName: Mirror.Examples.dll
     namespaceName: Mirror.Examples.NetworkRoom
     className: NetworkRoomPlayerExt
+  - hash:
+      serializedVersion: 2
+      Hash: 69cb23c11c0455402c716675db5a7f7e
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameRuleItem
+  - hash:
+      serializedVersion: 2
+      Hash: b23ea899d2a7367dcfa845bbf95c9af1
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameRuleStore
   platform: 19
   scenePathNames:
   - Assets/Scenes/Main Menu.unity

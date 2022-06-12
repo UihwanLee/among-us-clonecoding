@@ -29,6 +29,9 @@ public class IngameIntroUI : MonoBehaviour
     [SerializeField]
     private Color imposterColor;
 
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
     public IEnumerator ShowIntroSequence()
     {
         shhhhObj.SetActive(true);
@@ -89,15 +92,21 @@ public class IngameIntroUI : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Close()
     {
-        
+        StartCoroutine(FadeOut());
     }
 
-    // Update is called once per frame
-    void Update()
+    private IEnumerator FadeOut()
     {
-        
+        float timer = 0f;
+        while(timer <= 1f)
+        {
+            yield return null;
+            timer += Time.deltaTime;
+            canvasGroup.alpha = Mathf.Lerp(1f, 0f, timer);
+        }
+
+        gameObject.SetActive(false);
     }
 }

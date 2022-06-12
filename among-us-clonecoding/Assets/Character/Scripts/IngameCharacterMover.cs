@@ -14,6 +14,20 @@ public class IngameCharacterMover : CharacterMover
     [SyncVar]
     public EPlayerType playerType;
 
+    [ClientRpc]
+    public void RpcTeleport(Vector3 position)
+    {
+        transform.position = position;
+    }
+
+    public void SetNicknameColor(EPlayerType type)
+    {
+        if(playerType == EPlayerType.Imposter && type == EPlayerType.Imposter)
+        {
+            nicknameText.color = Color.red;
+        }
+    }
+
     // Start is called before the first frame update
     public override void Start()
     {

@@ -58,13 +58,16 @@ public class LobbyUIManager : MonoBehaviour
 
     public void OnClickStartButton()
     {
+        var manager = NetworkManager.singleton as AmongUsRoomManager;
+        manager.gameRuleData = FindObjectOfType<GameRuleStore>().GetGameRuleData();
+
         var players = FindObjectsOfType<AmongUsRoomPlayer>();
+
         for(int i = 0; i < players.Length; i++)
         {
             players[i].readyToBegin = true;
         }
 
-        var manager = NetworkManager.singleton as AmongUsRoomManager;
         manager.ServerChangeScene(manager.GameplayScene);
     }
 }

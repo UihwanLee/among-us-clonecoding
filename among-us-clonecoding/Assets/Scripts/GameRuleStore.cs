@@ -374,9 +374,25 @@ public class GameRuleStore : NetworkBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    public GameRuleData GetGameRuleData()
     {
-        
+        return new GameRuleData()
+        {
+            anonymousVotes = anonymousVotes,
+            commonTask = commonTask,
+            complexTask = complexTask,
+            confirmEjects = confirmEjects,
+            crewSight = crewSight,
+            emergencyMeetings = emergencyMeetings,
+            emergencyMeetingsCooldown = emergencyMeetingsCooldown,
+            imposterSight = imposterSight,
+            killCooldown = killCooldown,
+            meetingsTime = meetingsTime,
+            moveSpeed = moveSpeed,
+            simpleTask = simpleTask,
+            taskBarUpates = taskBarUpates,
+            visualTasks = visualTasks,
+            voteTime = voteTime
+        };
     }
 }

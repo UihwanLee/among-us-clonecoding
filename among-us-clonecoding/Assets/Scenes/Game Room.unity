@@ -1351,21 +1351,21 @@ MonoBehaviour:
   syncInterval: 0.1
   isRecommendRuleToggle: {fileID: 892196616}
   confirmEjectsToggle: {fileID: 1101340853}
-  emergencyMeetingsText: {fileID: 1476043428}
-  emergencyMeetingsCooldownText: {fileID: 1086107346}
-  meetingsTimeText: {fileID: 310971098}
-  voteTimeText: {fileID: 388800952}
+  emergencyMeetingsText: {fileID: 2773440}
+  emergencyMeetingsCooldownText: {fileID: 147848044}
+  meetingsTimeText: {fileID: 1769078222}
+  voteTimeText: {fileID: 733041256}
   anonymousVotesToggle: {fileID: 1501549856}
-  moveSpeedText: {fileID: 1885461235}
-  crewSightText: {fileID: 1662065659}
-  imposterSightText: {fileID: 1834774228}
-  killCooldownText: {fileID: 1580593882}
-  killRangeText: {fileID: 1594968464}
+  moveSpeedText: {fileID: 194318760}
+  crewSightText: {fileID: 353902339}
+  imposterSightText: {fileID: 1650199232}
+  killCooldownText: {fileID: 589761573}
+  killRangeText: {fileID: 1344014367}
   visualTasksToggle: {fileID: 441917204}
-  taskBarUpatesText: {fileID: 1938910277}
-  commonTaskText: {fileID: 818210739}
-  complexTaskText: {fileID: 480983387}
-  simpleTaskText: {fileID: 1530181642}
+  taskBarUpatesText: {fileID: 2135111377}
+  commonTaskText: {fileID: 55050678}
+  complexTaskText: {fileID: 2073947129}
+  simpleTaskText: {fileID: 780141056}
   gameRuleOverview: {fileID: 1235375762}
 --- !u!114 &166151543
 MonoBehaviour:
@@ -3813,7 +3813,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2070728238}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.31703702
+  m_Size: 0.31703705
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15515,7 +15515,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 969211638}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

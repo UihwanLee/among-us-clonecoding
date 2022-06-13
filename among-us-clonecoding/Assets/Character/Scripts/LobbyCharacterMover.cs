@@ -15,7 +15,7 @@ public class LobbyCharacterMover : CharacterMover
         {
             if(newOwnerId == player.netId)
             {
-                player.lobbyPlayerCharacter = this;
+                player.myCharacter = this;
                 break;
             }
         }

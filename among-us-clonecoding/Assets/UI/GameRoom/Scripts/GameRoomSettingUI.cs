@@ -6,14 +6,14 @@ public class GameRoomSettingUI : SettingsUI
 {
     public void Open()
     {
-        AmongUsRoomPlayer.MyRoomPlayer.lobbyPlayerCharacter.IsMovealbe = false;
+        AmongUsRoomPlayer.MyRoomPlayer.myCharacter.IsMovealbe = false;
         gameObject.SetActive(true);
     }
 
     public override void Close()
     {
         base.Close();
-        AmongUsRoomPlayer.MyRoomPlayer.lobbyPlayerCharacter.IsMovealbe = true;
+        AmongUsRoomPlayer.MyRoomPlayer.myCharacter.IsMovealbe = true;
     }
 
 

@@ -39,6 +39,15 @@ public class IngameCharacterMover : CharacterMover
 
     public bool isKillalbe { get { return killCooldown < 0f && playerFinder.targets.Count != 0; } }
 
+    [SyncVar]
+    public bool isReporter = false;
+
+    [SyncVar]
+    public bool isVote;
+
+    [SyncVar]
+    public int vote;
+
     public EPlayerColor foundDeadbodyColor;
 
     [ClientRpc]
@@ -116,28 +125,34 @@ public class IngameCharacterMover : CharacterMover
         {
             RpcTeleport(target.transform.position);
             var manager = NetworkRoomManager.singleton as AmongUsRoomManager;
-            target.Dead(playerColor);
+            target.Dead(false, playerColor);
             killCooldown = GameSystem.Instance.killCooldown;
         }
     }
 
-    public void Dead(EPlayerColor imposterColor)
+    public void Dead(bool isEject, EPlayerColor imposterColor = EPlayerColor.Black)
     {
         playerType |= EPlayerType.Ghost;
-        RpcDead(imposterColor, playerColor);
-        var manager = NetworkRoomManager.singleton as AmongUsRoomManager;
-        var deadbody = Instantiate(manager.spawnPrefabs[1], transform.position, transform.rotation).GetComponent<Deadbody>();
-        NetworkServer.Spawn(deadbody.gameObject);
-        deadbody.RpcSetColor(playerColor);
+        RpcDead(isEject ,imposterColor, playerColor);
+        if(!isEject)
+        {
+            var manager = NetworkRoomManager.singleton as AmongUsRoomManager;
+            var deadbody = Instantiate(manager.spawnPrefabs[1], transform.position, transform.rotation).GetComponent<Deadbody>();
+            NetworkServer.Spawn(deadbody.gameObject);
+            deadbody.RpcSetColor(playerColor);
+        }
     }
 
     [ClientRpc]
-    private void RpcDead(EPlayerColor imposterColor, EPlayerColor crewColor)
+    private void RpcDead(bool isEject, EPlayerColor imposterColor, EPlayerColor crewColor)
     {
         if(hasAuthority)
         {
             animator.SetBool("isGhost", true);
-            IngameUIManager.Instance.KillUI.Open(imposterColor, crewColor);
+            if(!isEject)
+            {
+                IngameUIManager.Instance.KillUI.Open(imposterColor, crewColor);
+            }
 
             var players = GameSystem.Instance.GetPlayerList();
             foreach(var player in players)
@@ -174,6 +189,7 @@ public class IngameCharacterMover : CharacterMover
     [Command]
     public void CmdReport(EPlayerColor deadbodyColor)
     {
+        isReporter = true;
         GameSystem.Instance.StartReportMeeting(deadbodyColor);
     }
 
@@ -193,5 +209,31 @@ public class IngameCharacterMover : CharacterMover
             spriteRenderer.material.SetColor("_PlayerColor", color);
             nicknameText.text = "";
         }
+    }
+
+    [Command]
+    public void CmdVoteEjectPlayer(EPlayerColor ejectColor)
+    {
+        isVote = true;
+        GameSystem.Instance.RpcSignVoteEject(playerColor, ejectColor);
+
+        var players = FindObjectsOfType<IngameCharacterMover>();
+        IngameCharacterMover ejectedPlayer = null;
+        for(int i=0; i<players.Length; i++)
+        {
+            if(players[i].playerColor == ejectColor)
+            {
+                ejectedPlayer = players[i];
+            }
+        }
+        ejectedPlayer.vote += 1;
+    }
+
+    [Command]
+    public void CmdSkipVote()
+    {
+        isVote = true;
+        GameSystem.Instance.skipVotePlayerCount += 1;
+        GameSystem.Instance.RpcSignSkipVote(playerColor);
     }
 }

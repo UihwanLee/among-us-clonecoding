@@ -35,6 +35,6 @@ public class KillUI : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-        AmongUsRoomPlayer.MyRoomPlayer.myCharacter.IsMovealbe = true;
+        AmongUsRoomPlayer.MyRoomPlayer.myCharacter.IsMovealbe = !(IngameUIManager.Instance.ReportUI.gameObject.activeSelf || IngameUIManager.Instance.MeetingUI.gameObject.activeSelf);
     }
 }

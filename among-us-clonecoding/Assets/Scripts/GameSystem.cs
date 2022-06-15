@@ -22,6 +22,12 @@ public class GameSystem : NetworkBehaviour
     [SyncVar]
     public int killRange;
 
+    [SyncVar]
+    public int skipVotePlayerCount;
+
+    [SyncVar]
+    public float remainTime;
+
     [SerializeField]
     private Light2D shadowLight;
 
@@ -45,15 +51,15 @@ public class GameSystem : NetworkBehaviour
         killCooldown = manager.gameRuleData.killCooldown;
         killRange = (int)manager.gameRuleData.killRange;
 
-        while(manager.roomSlots.Count != players.Count)
+        while (manager.roomSlots.Count != players.Count)
         {
             yield return null;
         }
 
-        for(int i=0; i < manager.imposterCount; i++)
+        for (int i = 0; i < manager.imposterCount; i++)
         {
             var player = players[Random.Range(0, players.Count)];
-            if(player.playerType != EPlayerType.Imposter)
+            if (player.playerType != EPlayerType.Imposter)
             {
                 player.playerType = EPlayerType.Imposter;
             }
@@ -63,19 +69,24 @@ public class GameSystem : NetworkBehaviour
             }
         }
 
-        for(int i=0; i< players.Count; i++)
-        {
-            float radian = (2f * Mathf.PI) / players.Count;
-            radian *= i;
-            players[i].RpcTeleport(spawnTransform.position + (new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0f) * spawnDistance));
-        }
+        AllocatePlayerToAroundTable(players.ToArray());
 
         yield return new WaitForSeconds(2f);
         RpcStartGame();
 
-        foreach(var player in players)
+        foreach (var player in players)
         {
             player.SetKillCooldown();
+        }
+    }
+
+    private void AllocatePlayerToAroundTable(IngameCharacterMover[] players)
+    {
+        for (int i = 0; i < players.Length; i++)
+        {
+            float radian = (2f * Mathf.PI) / players.Length;
+            radian *= i;
+            players[i].RpcTeleport(spawnTransform.position + (new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0f) * spawnDistance));
         }
     }
 
@@ -146,11 +157,170 @@ public class GameSystem : NetworkBehaviour
     public void StartReportMeeting(EPlayerColor deadbodyColor)
     {
         RpcSendReportSign(deadbodyColor);
+        StartCoroutine(MeetingProcess_Coroutine());
+    }
+
+    private IEnumerator StartMeeting_Coroutine()
+    {
+        yield return new WaitForSeconds(3f);
+        IngameUIManager.Instance.ReportUI.Close();
+        IngameUIManager.Instance.MeetingUI.Open();
+        IngameUIManager.Instance.MeetingUI.ChangeMeetingState(EMeetingState.Meeting);
+    }
+
+    private IEnumerator MeetingProcess_Coroutine()
+    {
+        var players = FindObjectsOfType<IngameCharacterMover>();
+        foreach(var player in players)
+        {
+            player.isVote = true;
+        }
+
+        var manager = NetworkManager.singleton as AmongUsRoomManager;
+        remainTime = manager.gameRuleData.meetingsTime;
+        while(true)
+        {
+            remainTime -= Time.deltaTime;
+            yield return null;
+            if(remainTime <= 0f)
+            {
+                break;
+            }
+        }
+
+        skipVotePlayerCount = 0;
+        foreach(var player in players)
+        {
+            if((player.playerType & EPlayerType.Ghost) != EPlayerType.Ghost)
+            {
+                player.isVote = false;
+            }
+            player.vote = 0;
+        }
+
+        RpcStartVoteTime();
+        remainTime = manager.gameRuleData.voteTime;
+        while (true)
+        {
+            remainTime -= Time.deltaTime;
+            yield return null;
+            if (remainTime <= 0f)
+            {
+                break;
+            }
+        }
+
+        foreach(var player in players)
+        {
+            if(!player.isVote && (player.playerType & EPlayerType.Ghost) != EPlayerType.Ghost)
+            {
+                player.isVote = true;
+                skipVotePlayerCount += 1;
+                RpcSignSkipVote(player.playerColor);
+            }
+        }
+        RpcEndVoteTime();
+
+        yield return new WaitForSeconds(3f);
+
+        StartCoroutine(CalculateVoteResult_Coroutine(players));
+    }
+
+    private class CharacterVotComparer : IComparer
+    {
+        public int Compare(object x, object y)
+        {
+            IngameCharacterMover xPlayer = (IngameCharacterMover)x;
+            IngameCharacterMover yPlayer = (IngameCharacterMover)y;
+            return xPlayer.vote <= yPlayer.vote ? 1 : -1;
+        }
+    }
+
+    private IEnumerator CalculateVoteResult_Coroutine(IngameCharacterMover[] players)
+    {
+        System.Array.Sort(players, new CharacterVotComparer());
+
+        int remainImposter = 0;
+        foreach(var player in players)
+        {
+            if((player.playerType & EPlayerType.Imposter_Alive) == EPlayerType.Imposter_Alive)
+            {
+                remainImposter++;
+            }
+        }
+
+        if(skipVotePlayerCount >= players[0].vote)
+        {
+            RpcOpenEjectionUI(false, EPlayerColor.Black, false, remainImposter);
+        }
+        else if(players[0].vote == players[1].vote)
+        {
+            RpcOpenEjectionUI(false, EPlayerColor.Black, false, remainImposter);
+        }
+        else
+        {
+            bool isImposter = (players[0].playerType & EPlayerType.Imposter) == EPlayerType.Imposter;
+            RpcOpenEjectionUI(true, players[0].playerColor, isImposter, isImposter ? remainImposter - 1 : remainImposter);
+
+            players[0].Dead(true);
+        }
+
+        var deadbodies = FindObjectsOfType<Deadbody>();
+        for(int i=0; i< deadbodies.Length; i++)
+        {
+            Destroy(deadbodies[i].gameObject);
+        }
+
+        AllocatePlayerToAroundTable(players);
+
+        yield return new WaitForSeconds(10f);
+
+        RpcCloseEjcetionUI();
+    }
+
+    [ClientRpc]
+    public void RpcOpenEjectionUI(bool isEjection, EPlayerColor ejectionPlayerColor, bool isImposter, int remainImposterCount)
+    {
+        IngameUIManager.Instance.EjectionUI.Open(isEjection, ejectionPlayerColor, isImposter, remainImposterCount);
+        IngameUIManager.Instance.MeetingUI.Close();
+    }
+
+    [ClientRpc]
+    public void RpcCloseEjcetionUI()
+    {
+        IngameUIManager.Instance.EjectionUI.Close();
+        AmongUsRoomPlayer.MyRoomPlayer.myCharacter.IsMovealbe = true;
+    }
+
+    [ClientRpc]
+    public void RpcStartVoteTime()
+    {
+        IngameUIManager.Instance.MeetingUI.ChangeMeetingState(EMeetingState.Vote);
+    }
+
+    [ClientRpc]
+    public void RpcEndVoteTime()
+    {
+        IngameUIManager.Instance.MeetingUI.CompleteVote();
     }
 
     [ClientRpc]
     private void RpcSendReportSign(EPlayerColor deadbodyColor)
     {
         IngameUIManager.Instance.ReportUI.Open(deadbodyColor);
+
+        StartCoroutine(StartMeeting_Coroutine());
+    }
+
+    [ClientRpc]
+    public void RpcSignVoteEject(EPlayerColor voterColor, EPlayerColor ejectColor)
+    {
+        IngameUIManager.Instance.MeetingUI.UpdateVote(voterColor, ejectColor);
+    }
+
+    [ClientRpc]
+    public void RpcSignSkipVote(EPlayerColor skipVotePlayerColor)
+    {
+        IngameUIManager.Instance.MeetingUI.UpdateSkipVotePlayer(skipVotePlayerColor);
     }
 }

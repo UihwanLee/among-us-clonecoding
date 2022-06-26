@@ -4,6 +4,7 @@ using UnityEngine;
 
 public enum EControlType
 {
+    JoyStick,
     KeyboardMouse,
     Mouse
 }

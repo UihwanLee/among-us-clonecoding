@@ -31,6 +31,8 @@ public class CharacterMover : NetworkBehaviour
     [SerializeField]
     private float cameraSize = 2.5f;
 
+    private GameObject joyStickUI;
+
     protected SpriteRenderer spriteRenderer;
 
     [SyncVar(hook =nameof(SetPlayerColor_Hook))]
@@ -60,6 +62,8 @@ public class CharacterMover : NetworkBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.material.SetColor("_PlayerColor", PlayerColor.GetColor(playerColor));
 
+        joyStickUI = GameObject.Find("Joystick UI");
+
         animator = GetComponent<Animator>();
         if(hasAuthority)
         {
@@ -83,7 +87,17 @@ public class CharacterMover : NetworkBehaviour
             bool isMove = false;
             if(PlayerSettings.controlType == EControlType.KeyboardMouse)
             {
+                joyStickUI.SetActive(false);
                 Vector3 dir = Vector3.ClampMagnitude(new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f), 1f);
+                if (dir.x < 0f) transform.localScale = new Vector3(-characterSize, characterSize, 1f);
+                else if (dir.x > 0f) transform.localScale = new Vector3(characterSize, characterSize, 1f);
+                transform.position += dir * speed * Time.deltaTime;
+                isMove = dir.magnitude != 0f;
+            }
+            else if(PlayerSettings.controlType == EControlType.Mouse)
+            {
+                joyStickUI.SetActive(false);
+                Vector3 dir = (Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f)).normalized;
                 if (dir.x < 0f) transform.localScale = new Vector3(-characterSize, characterSize, 1f);
                 else if (dir.x > 0f) transform.localScale = new Vector3(characterSize, characterSize, 1f);
                 transform.position += dir * speed * Time.deltaTime;
@@ -91,13 +105,37 @@ public class CharacterMover : NetworkBehaviour
             }
             else
             {
-                Vector3 dir = (Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0f)).normalized;
-                if (dir.x < 0f) transform.localScale = new Vector3(-characterSize, characterSize, 1f);
-                else if (dir.x > 0f) transform.localScale = new Vector3(characterSize, characterSize, 1f);
-                transform.position += dir * speed * Time.deltaTime;
-                isMove = dir.magnitude != 0f;
+                joyStickUI.SetActive(true);
+                if(joyStickUI != null)
+                {
+                    JoyStickUI movementJoyStick = joyStickUI.GetComponent<JoyStickUI>();
+
+                    Vector3 dir = new Vector3(movementJoyStick.joyStickVec.x * speed, movementJoyStick.joyStickVec.y * speed, 0f);
+                    if (dir.x < 0f) transform.localScale = new Vector3(-characterSize, characterSize, 1f);
+                    else if (dir.x > 0f) transform.localScale = new Vector3(characterSize, characterSize, 1f);
+                    transform.position += dir * Time.deltaTime;
+                    isMove = dir.magnitude != 0f;
+
+                    /*
+                    if (movementJoyStick.joyStickVec.y != 0)
+                    {
+                        isMove = true;
+                        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                        Vector3 dir = new Vector3(movementJoyStick.joyStickVec.x * speed, movementJoyStick.joyStickVec.y * speed, 0f);
+                        rb.velocity = new Vector2(movementJoyStick.joyStickVec.x * speed, movementJoyStick.joyStickVec.y * speed);
+                    }
+                    else
+                    {
+
+                    }
+                    */
+                }
             }
             animator.SetBool("isMove", isMove);
+        }
+        else
+        {
+            joyStickUI.SetActive(false);
         }
 
         if(transform.localScale.x < 0)

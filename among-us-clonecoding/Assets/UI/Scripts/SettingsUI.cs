@@ -9,6 +9,8 @@ public class SettingsUI : MonoBehaviour
     private Button MouseControllButton;
     [SerializeField]
     private Button KeyboardMouseControllButton;
+    [SerializeField]
+    private Button JoyStickButton;
     private Animator animator;
 
     private void Awake()
@@ -23,11 +25,19 @@ public class SettingsUI : MonoBehaviour
             case EControlType.Mouse:
                 MouseControllButton.image.color = Color.green;
                 KeyboardMouseControllButton.image.color = Color.white;
+                JoyStickButton.image.color = Color.white;
                 break;
 
             case EControlType.KeyboardMouse:
-                MouseControllButton.image.color = Color.white;
                 KeyboardMouseControllButton.image.color = Color.green;
+                MouseControllButton.image.color = Color.white;
+                JoyStickButton.image.color = Color.white;
+                break;
+
+            case EControlType.JoyStick:
+                JoyStickButton.image.color = Color.green;
+                MouseControllButton.image.color = Color.white;
+                KeyboardMouseControllButton.image.color = Color.white;
                 break;
         }
     }
@@ -40,11 +50,19 @@ public class SettingsUI : MonoBehaviour
             case EControlType.Mouse:
                 MouseControllButton.image.color = Color.green;
                 KeyboardMouseControllButton.image.color = Color.white;
+                JoyStickButton.image.color = Color.white;
                 break;
 
             case EControlType.KeyboardMouse:
-                MouseControllButton.image.color = Color.white;
                 KeyboardMouseControllButton.image.color = Color.green;
+                MouseControllButton.image.color = Color.white;
+                JoyStickButton.image.color = Color.white;
+                break;
+
+            case EControlType.JoyStick:
+                JoyStickButton.image.color = Color.green;
+                MouseControllButton.image.color = Color.white;
+                KeyboardMouseControllButton.image.color = Color.white;
                 break;
         }
     }
